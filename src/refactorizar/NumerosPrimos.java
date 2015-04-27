@@ -1,23 +1,20 @@
 package refactorizar;
 
-import java.util.Scanner;
-
 /**
  * Lista los numeros primos de dos cifras
  *
  */
-public class Refactorizar {
+public class NumerosPrimos {
 
-    public static void main(String[] args) {
-        boolean esPrimo = false;
-        int cantidadDigitos = 0;
-        int contadordigitos = 0;
-        System.out.println("cantidad digitos deseada:");
-        cantidadDigitos=entradadato(); 
-        if (cantidadDigitos <= 0) {
-            System.out.println("Ingrese como parámetro, un numero de digitos correcto (mayor que 0): ");
+    Modelo mod = new Modelo();
+
+    public void calcPrimos() {
+        int i;
+        mod.setCantidadDigitos(Vista.entradadato());
+        if (mod.getCantidadDigitos() <= 0) {
+            Vista.imprimirString("Ingrese como parámetro, un numero de digitos correcto (mayor que 0): ");
         }
-        for (int i = 1; i <= 99999; i++) {
+        for (i = 1; i <= 99999; i++) {
             int divisionEntera = i;
 
             int contador = 0;
@@ -26,14 +23,14 @@ public class Refactorizar {
                 divisionEntera /= 10;
                 contador++;
             }
-            contadordigitos = contador;
+            mod.setContadordigitos(contador);
 
-            if (contadordigitos == cantidadDigitos) {
+            if (mod.getContadordigitos() == mod.getCantidadDigitos()) {
                 if (i < 4) {
-                    esPrimo = true;
+                    mod.setEsPrimo(true);
                 } else {
                     if (i % 2 == 0) {
-                        esPrimo = false;
+                        mod.setEsPrimo(false);
                     } else {
                         int contador1 = 0;
                         int i1 = 1;
@@ -53,23 +50,21 @@ public class Refactorizar {
                         }
 
                         if (contador1 == 1) {
-                            esPrimo = true;
+                            mod.setEsPrimo(true);
                         }
                     }
                 }
 
-                if (esPrimo == true) {
-                    System.out.println(i);
+                if (mod.isEsPrimo() == true) {
+                    Vista.imprimirInt(i);
                 }
             }
         }
     }
 
-    private static int entradadato() {
-        int cantidadDigitos;
-        Scanner dato=new Scanner(System.in);
-        cantidadDigitos=dato.nextInt();
-        return cantidadDigitos;
+    public static void main(String[] args) {
+        
+        NumerosPrimos nP=new NumerosPrimos();
+        nP.calcPrimos();
     }
-
 }
